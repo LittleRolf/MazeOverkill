@@ -49,7 +49,7 @@ public class Maze {
 		sizeX = temp.get(0).length();
 		maze = new MazeField[sizeY][sizeX];
 		parseInputToMaze(temp);
-		rat = new MazeRat(startPoint, this);
+		//rat = new MazeRat(startPoint, this);
 
 	}
 
@@ -57,7 +57,7 @@ public class Maze {
 		return maze;
 	}
 
-	public boolean canGoForward() {
+	public boolean canRatGoForward() {
 		int offX = 0, offY = 0;
 		switch (rat.dir) {
 		case EAST:
@@ -81,13 +81,13 @@ public class Maze {
 
 	}
 
-	public boolean isOnTarget() {
+	public boolean isRatOnTarget() {
 		return rat.position.equals(targetPoint);
 	}
 	
 	public void startSimulation() {
 		int counter = 0;
-		while (!isOnTarget() && counter < maxSimulationStep) {
+		while (!isRatOnTarget() && counter < maxSimulationStep) {
 			rat.performStep();
 			counter++;
 		}
