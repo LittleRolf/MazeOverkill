@@ -34,22 +34,24 @@ public class MazeGUI {
 		mazePanel = new MazePanel(maze);
 		mazePanel.setBounds(10, 10, 590, 340);
 		frame.add(mazePanel);
-		
+
 		(new SimulationThread()).start();
-		
+
 	}
 
 	private class SimulationThread extends Thread {
-		
+
 		public void run() {
 			int counter = 0;
-			while (!maze.allRatsOnTarget() && counter < maze.getMaxSimulationStep()) {
+			while (!maze.allRatsOnTarget()
+					&& counter < maze.getMaxSimulationStep()) {
 				for (MazeRat rat : maze.getRats()) {
-					rat.performStep();
+					if (!maze.isRatOnTarget(rat))
+						rat.performStep();
 				}
 				mazePanel.repaint();
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -58,18 +60,18 @@ public class MazeGUI {
 
 			System.out.println("Finished simulation!");
 			if (maze.allRatsOnTarget()) {
-				System.out.println("Rats finished! It took " + counter + " steps");
+				System.out.println("Rats finished! It took " + counter
+						+ " steps");
 			} else {
 				System.out.println("Rats failed");
 			}
 		}
-		
-		
+
 	}
-	
+
 	public void setVisible(boolean b) {
 		frame.setVisible(b);
-		
+
 	}
 
 }

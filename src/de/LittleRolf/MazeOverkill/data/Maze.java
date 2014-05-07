@@ -74,7 +74,7 @@ public class Maze {
 		System.out.println(targetPoint);
 		System.out.println(startPoint);
 
-		// rats.add(new BeamRat(startPoint, this));
+		rats.add(new BeamRat(startPoint, this));
 		rats.add(new SimpleRat((Point) startPoint.clone(), this));
 
 	}
