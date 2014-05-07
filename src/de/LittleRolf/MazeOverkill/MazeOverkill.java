@@ -11,7 +11,7 @@ import de.LittleRolf.MazeOverkill.data.Maze;
 public class MazeOverkill {
 
 	public static void main(String[] args) {
-	
+
 		Maze m;
 		try {
 			m = new Maze(ImageIO.read(new File("Maze1.jpg")));
