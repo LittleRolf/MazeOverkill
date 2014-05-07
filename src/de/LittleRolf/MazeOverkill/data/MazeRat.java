@@ -1,5 +1,6 @@
 package de.LittleRolf.MazeOverkill.data;
 
+import java.awt.Color;
 import java.awt.Point;
 
 public abstract class MazeRat {
@@ -32,7 +33,7 @@ public abstract class MazeRat {
 	 * @return guess what...
 	 */
 	public boolean canGoForward() {
-		return maze.canRatGoForward();
+		return maze.canRatGoForward(this);
 	}
 
 	/**
@@ -80,5 +81,7 @@ public abstract class MazeRat {
 	}
 
 	public abstract void performStep();
+	
+	public abstract Color getColor();
 
 }
