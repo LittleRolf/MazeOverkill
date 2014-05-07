@@ -31,7 +31,7 @@ public abstract class MazeRat {
 	 * Checks whether the rat can move forward
 	 * @return guess what...
 	 */
-	private boolean canGoForward() {
+	public boolean canGoForward() {
 		return maze.canRatGoForward();
 	}
 
@@ -40,7 +40,7 @@ public abstract class MazeRat {
 	 * 
 	 * @return Whether the move succeeded or was blocked by a wall
 	 */
-	private boolean goForward() {
+	public boolean goForward() {
 		if (!canGoForward())
 			return false;
 
@@ -68,14 +68,14 @@ public abstract class MazeRat {
 	/**
 	 * Makes the rat turn right 90°
 	 */
-	private void turnRight() {
+	public void turnRight() {
 		dir = dir.getRight();
 	}
 
 	/**
 	 * Makes the rat turn left 90°
 	 */
-	private void turnLeft() {
+	public void turnLeft() {
 		dir = dir.getLeft();
 	}
 

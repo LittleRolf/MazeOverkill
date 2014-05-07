@@ -1,6 +1,8 @@
 package de.LittleRolf.MazeOverkill.data;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -51,6 +53,30 @@ public class Maze {
 		parseInputToMaze(temp);
 		//rat = new MazeRat(startPoint, this);
 
+	}
+	
+	public Maze(BufferedImage img) {
+		System.out.println("creating maze with size " + img.getHeight() +" x " + img.getWidth());
+		maze = new MazeField[img.getHeight()][img.getWidth()];
+		
+		for (int x = 0; x < img.getWidth();x++) {
+			for (int y = 0; y < img.getHeight(); y++) {
+				Color c = new Color(img.getRGB(x, y));
+				if (c.getGreen()>100 && c.getBlue()<=100) {
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
+					targetPoint = new Point(x, y);
+				} else if (c.getRed()>100 && c.getBlue()<=100) {
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
+					startPoint = new Point(x, y);
+				} else if(c.getBlue()>=100) {
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
+				} else if (c.getBlue()<100) {
+					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
+				} 
+			}
+		}
+		System.out.println(targetPoint);
+		System.out.println(startPoint);
 	}
 
 	public MazeField[][] getMazeRawData() {
