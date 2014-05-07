@@ -2,8 +2,6 @@ package de.LittleRolf.MazeOverkill;
 
 import java.awt.EventQueue;
 import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
