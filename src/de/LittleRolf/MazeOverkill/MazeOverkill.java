@@ -16,7 +16,7 @@ public class MazeOverkill {
 		try {
 			m = new Maze(ImageIO.read(new File("Maze1.jpg")));
 			System.out.println(Arrays.deepToString(m.getMazeRawData()));
-			m.setMaxSimulationStep(10);
+			m.setMaxSimulationStep(10000);
 			m.startSimulation();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

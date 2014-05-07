@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import de.LittleRolf.MazeOverkill.rats.SimpleRat;
 import sun.misc.PerformanceLogger;
 
 public class Maze {
-	
+
 	private int maxSimulationStep = 100000;
 
 	private MazeField[][] maze;
@@ -51,32 +52,41 @@ public class Maze {
 		sizeX = temp.get(0).length();
 		maze = new MazeField[sizeY][sizeX];
 		parseInputToMaze(temp);
-		//rat = new MazeRat(startPoint, this);
+		initRat();
 
 	}
-	
+
 	public Maze(BufferedImage img) {
-		System.out.println("creating maze with size " + img.getHeight() +" x " + img.getWidth());
+		System.out.println("creating maze with size " + img.getHeight() + " x "
+				+ img.getWidth());
 		maze = new MazeField[img.getHeight()][img.getWidth()];
-		
-		for (int x = 0; x < img.getWidth();x++) {
+
+		for (int x = 0; x < img.getWidth(); x++) {
 			for (int y = 0; y < img.getHeight(); y++) {
 				Color c = new Color(img.getRGB(x, y));
-				if (c.getGreen()>100 && c.getBlue()<=100) {
+				if (c.getGreen() > 100 && c.getBlue() <= 100) {
 					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
 					targetPoint = new Point(x, y);
-				} else if (c.getRed()>100 && c.getBlue()<=100) {
-					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
-					startPoint = new Point(x, y);
-				} else if(c.getBlue()>=100) {
-					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
-				} else if (c.getBlue()<100) {
+				} else if (c.getRed() > 100 && c.getBlue() <= 100) {
 					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
-				} 
+					startPoint = new Point(x, y);
+				} else if (c.getBlue() >= 100) {
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
+				} else if (c.getBlue() < 100) {
+					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
+				}
 			}
 		}
+
+		initRat();
+	}
+
+	private void initRat() {
 		System.out.println(targetPoint);
 		System.out.println(startPoint);
+
+		rat = new SimpleRat(startPoint, this);
+
 	}
 
 	public MazeField[][] getMazeRawData() {
@@ -110,15 +120,22 @@ public class Maze {
 	public boolean isRatOnTarget() {
 		return rat.position.equals(targetPoint);
 	}
-	
+
 	public void startSimulation() {
 		int counter = 0;
 		while (!isRatOnTarget() && counter < maxSimulationStep) {
 			rat.performStep();
 			counter++;
 		}
+
+		System.out.println("Finished simulation!");
+		if (isRatOnTarget()) {
+			System.out.println("Rat finished");
+		} else {
+			System.out.println("Rat failed");
+		}
 	}
-	
+
 	private void parseInputToMaze(ArrayList<String> temp) {
 		for (int y = 0; y < temp.size(); y++) {
 			String line = temp.get(y);
@@ -128,7 +145,7 @@ public class Maze {
 				} else if (line.substring(x, x + 1).equals("W")) {
 					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
 				} else if (line.substring(x, x + 1).equals("S")) {
-					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
+					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
 					startPoint = new Point(x, y);
 				} else if (line.substring(x, x + 1).equals("T")) {
 					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);

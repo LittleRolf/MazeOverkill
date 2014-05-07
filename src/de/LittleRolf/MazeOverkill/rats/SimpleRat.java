@@ -7,8 +7,9 @@ import de.LittleRolf.MazeOverkill.data.MazeRat;
 
 /**
  * A sample implementation of the wall follower method for solving simple mazes
+ * 
  * @author ole
- *
+ * 
  */
 public class SimpleRat extends MazeRat {
 
@@ -18,10 +19,17 @@ public class SimpleRat extends MazeRat {
 
 	@Override
 	public void performStep() {
-		if(canGoForward()) {
-			goForward();
-		} else {
-			turnRight();
+		System.out.println(position + "   " + dir);
+		turnRight();
+		if (!goForward()) { //can go right?
+			turnLeft();
+			if (!goForward()) { //can go straight?
+				turnLeft();
+				if(!goForward()) { //what about left?
+					turnLeft();
+					goForward(); //OK, dead end
+				}
+			}
 		}
 
 	}
