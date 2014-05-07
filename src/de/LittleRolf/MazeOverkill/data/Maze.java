@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import de.LittleRolf.MazeOverkill.rats.*;
+
 ;
 
 public class Maze {
@@ -16,9 +17,9 @@ public class Maze {
 
 	private MazeField[][] maze;
 
-	private Point startPoint, targetPoint;
+	public Point startPoint, targetPoint;
 
-	private MazeRat rat;
+	private ArrayList<MazeRat> rats = new ArrayList<MazeRat>();
 
 	private int sizeX = 0, sizeY = 0;
 
@@ -73,7 +74,8 @@ public class Maze {
 		System.out.println(targetPoint);
 		System.out.println(startPoint);
 
-		rat = new BeamRat(startPoint, this);
+		// rats.add(new BeamRat(startPoint, this));
+		rats.add(new SimpleRat((Point) startPoint.clone(), this));
 
 	}
 
@@ -81,7 +83,11 @@ public class Maze {
 		return maze;
 	}
 
-	public boolean canRatGoForward() {
+	public ArrayList<MazeRat> getRats() {
+		return rats;
+	}
+
+	public boolean canRatGoForward(MazeRat rat) {
 		int offX = 0, offY = 0;
 		switch (rat.dir) {
 		case EAST:
@@ -100,27 +106,44 @@ public class Maze {
 			return false;
 
 		}
-		return (maze[rat.position.y + offY][rat.position.x + offX].toString()
-				.equals("E"));
+		try {
+			return (maze[rat.position.y + offY][rat.position.x + offX]
+					.toString().equals("E"));
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			return false;
+		}
 
 	}
 
-	public boolean isRatOnTarget() {
+	public boolean isRatOnTarget(MazeRat rat) {
 		return rat.position.equals(targetPoint);
+	}
+
+	public boolean allRatsOnTarget() {
+		boolean res = true;
+		for (MazeRat rat : rats) {
+			if (!isRatOnTarget(rat)) {
+				res = false;
+			}
+		}
+		return res;
 	}
 
 	public void startSimulation() {
 		int counter = 0;
-		while (!isRatOnTarget() && counter < maxSimulationStep) {
-			rat.performStep();
+		while (!allRatsOnTarget() && counter < maxSimulationStep) {
+			for (MazeRat rat : rats) {
+				rat.performStep();
+			}
+
 			counter++;
 		}
 
 		System.out.println("Finished simulation!");
-		if (isRatOnTarget()) {
-			System.out.println("Rat finished! It took " + counter + " steps");
+		if (allRatsOnTarget()) {
+			System.out.println("Rats finished! It took " + counter + " steps");
 		} else {
-			System.out.println("Rat failed");
+			System.out.println("Rats failed");
 		}
 	}
 

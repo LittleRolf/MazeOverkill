@@ -1,5 +1,6 @@
 package de.LittleRolf.MazeOverkill.rats;
 
+import java.awt.Color;
 import java.awt.Point;
 
 import de.LittleRolf.MazeOverkill.data.Maze;
@@ -19,8 +20,13 @@ public class BeamRat extends MazeRat {
 	public void performStep() {
 		
 		position = new Point((int)(Math.random()*maxX),(int) (Math.random()*maxY));
-		System.out.println(position + "   " + dir);
+		System.out.println("Beam rat : " + position + "   " + dir);
 
+	}
+
+	@Override
+	public Color getColor() {
+		return Color.BLUE;
 	}
 
 }
