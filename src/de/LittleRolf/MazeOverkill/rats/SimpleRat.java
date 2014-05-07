@@ -1,5 +1,6 @@
 package de.LittleRolf.MazeOverkill.rats;
 
+import java.awt.Color;
 import java.awt.Point;
 
 import de.LittleRolf.MazeOverkill.data.Maze;
@@ -15,11 +16,12 @@ public class SimpleRat extends MazeRat {
 
 	public SimpleRat(Point p, Maze m) {
 		super(p, m);
+		System.out.println(p);
 	}
 
 	@Override
 	public void performStep() {
-		System.out.println(position + "   " + dir);
+		
 		turnRight();
 		if (!goForward()) { //can go right?
 			turnLeft();
@@ -31,7 +33,13 @@ public class SimpleRat extends MazeRat {
 				}
 			}
 		}
+		System.out.println("Simple rat: "+position + "   " + dir);
 
+	}
+
+	@Override
+	public Color getColor() {
+		return Color.CYAN;
 	}
 
 }
