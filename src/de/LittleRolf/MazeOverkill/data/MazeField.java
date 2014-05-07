@@ -2,8 +2,9 @@ package de.LittleRolf.MazeOverkill.data;
 
 public class MazeField {
 	
-	public enum FieldType {
-		EMPTY, WALL, 
+	public enum FieldType{
+		EMPTY, WALL;
+		
 	}
 	
 	private final FieldType type;
@@ -18,6 +19,7 @@ public class MazeField {
 			return "0";
 		}
 	}
+	
 	
 	public MazeField(FieldType t) {
 		type = t;

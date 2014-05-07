@@ -7,10 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import de.LittleRolf.MazeOverkill.rats.SimpleRat;
-import sun.misc.PerformanceLogger;
+import de.LittleRolf.MazeOverkill.rats.*;
+;
 
 public class Maze {
 
@@ -22,20 +20,10 @@ public class Maze {
 
 	private MazeRat rat;
 
-	public Maze(int size) {
-		maze = new MazeField[size][size];
-		Arrays.fill(maze, new MazeField(MazeField.FieldType.EMPTY));
-
-	}
-
-	public Maze(int sizeX, int sizeY) {
-		maze = new MazeField[sizeY][sizeX];
-		Arrays.fill(maze, new MazeField(MazeField.FieldType.EMPTY));
-	}
+	private int sizeX = 0, sizeY = 0;
 
 	public Maze(String file) {
 
-		int sizeX = 0, sizeY = 0;
 		ArrayList<String> temp = new ArrayList<String>();
 
 		BufferedReader br;
@@ -85,7 +73,7 @@ public class Maze {
 		System.out.println(targetPoint);
 		System.out.println(startPoint);
 
-		rat = new SimpleRat(startPoint, this);
+		rat = new BeamRat(startPoint, this);
 
 	}
 
@@ -130,7 +118,7 @@ public class Maze {
 
 		System.out.println("Finished simulation!");
 		if (isRatOnTarget()) {
-			System.out.println("Rat finished");
+			System.out.println("Rat finished! It took " + counter + " steps");
 		} else {
 			System.out.println("Rat failed");
 		}
