@@ -172,7 +172,7 @@ public class Maze {
 		surround.put(Direction.EAST, maze[rat.position.y][rat.position.x+1]);
 		surround.put(Direction.SOUTH, maze[rat.position.y+1][rat.position.x]);
 		surround.put(Direction.WEST, maze[rat.position.y][rat.position.x-1]);
-		return null;
+		return surround;
 		
 	}
 
