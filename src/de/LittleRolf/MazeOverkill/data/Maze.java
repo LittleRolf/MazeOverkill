@@ -62,10 +62,10 @@ public class Maze {
 			for (int y = 0; y < img.getHeight(); y++) {
 				Color c = new Color(img.getRGB(x, y));
 				if (c.getGreen() > 100 && c.getBlue() <= 100) {
-					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY,false,true);
 					targetPoints.add(new Point(x, y));
 				} else if (c.getRed() > 100 && c.getBlue() <= 100) {
-					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
+					maze[y][x] = new MazeField(MazeField.FieldType.WALL,true,false);
 					startPoint = new Point(x, y);
 				} else if (c.getBlue() >= 100) {
 					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
@@ -202,10 +202,10 @@ public class Maze {
 				} else if (line.substring(x, x + 1).equals("W")) {
 					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
 				} else if (line.substring(x, x + 1).equals("S")) {
-					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
+					maze[y][x] = new MazeField(MazeField.FieldType.WALL,true,false);
 					startPoint = new Point(x, y);
 				} else if (line.substring(x, x + 1).equals("T")) {
-					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY,false,true);
 					targetPoints.add(new Point(x, y));
 				}
 			}
