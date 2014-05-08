@@ -6,10 +6,13 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-import de.LittleRolf.MazeOverkill.rats.BeamRat;
+import org.reflections.Reflections;
+
 import de.LittleRolf.MazeOverkill.rats.SimpleRat;
 
 ;
@@ -74,10 +77,36 @@ public class Maze {
 	}
 
 	private void initRat() {
+		Reflections reflections = new Reflections("de.LittleRolf.MazeOverkill");
 
+		Set<Class<? extends MazeRat>> subTypes = reflections
+				.getSubTypesOf(MazeRat.class);
+		for (Class<? extends MazeRat> clazz : subTypes) {
 
-//		rats.add(new BeamRat(startPoint, this));
-		rats.add(new SimpleRat((Point) startPoint.clone(), this));
+			try {
+				rats.add(clazz.getConstructor(Point.class, Maze.class)
+						.newInstance(startPoint.clone(), this));
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 
 	}
 
