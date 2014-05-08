@@ -8,11 +8,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import org.reflections.Reflections;
 
+import de.LittleRolf.MazeOverkill.data.MazeRat.Direction;
 import de.LittleRolf.MazeOverkill.rats.SimpleRat;
 
 ;
@@ -162,6 +164,16 @@ public class Maze {
 			}
 		}
 		return res;
+	}
+	
+	public HashMap<Direction,MazeField> getRatSurrounding(MazeRat rat) {
+		HashMap<Direction,MazeField> surround = new HashMap<Direction,MazeField>();
+		surround.put(Direction.NORTH, maze[rat.position.y-1][rat.position.x]);
+		surround.put(Direction.EAST, maze[rat.position.y][rat.position.x+1]);
+		surround.put(Direction.SOUTH, maze[rat.position.y+1][rat.position.x]);
+		surround.put(Direction.WEST, maze[rat.position.y][rat.position.x-1]);
+		return null;
+		
 	}
 
 	public void startSimulation() {
