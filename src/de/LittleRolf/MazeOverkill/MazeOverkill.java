@@ -16,7 +16,7 @@ public class MazeOverkill {
 			public void run() {
 				try {
 					Maze m;
-					m = new Maze(ImageIO.read(new File("Maze1.jpg")));
+					m = new Maze(ImageIO.read(new File("Maze3.jpg")));
 
 					MazeGUI window = new MazeGUI(m);
 					window.setVisible(true);

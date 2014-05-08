@@ -1,8 +1,5 @@
 package de.LittleRolf.MazeOverkill.gui;
 
-import java.io.File;
-
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import de.LittleRolf.MazeOverkill.data.Maze;
@@ -29,11 +26,13 @@ public class MazeGUI {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 700, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		// frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 
 		mazePanel = new MazePanel(maze);
 		mazePanel.setBounds(10, 10, 590, 340);
 		frame.add(mazePanel);
+		frame.pack();
 
 		(new SimulationThread()).start();
 

@@ -1,6 +1,7 @@
 package de.LittleRolf.MazeOverkill.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -28,6 +29,12 @@ public class MazePanel extends JPanel {
 		setLayout(null);
 
 		maze = m;
+	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(TILE_SIZE * maze.getMazeRawData()[0].length,
+				TILE_SIZE * maze.getMazeRawData().length);
 	}
 
 	@Override
