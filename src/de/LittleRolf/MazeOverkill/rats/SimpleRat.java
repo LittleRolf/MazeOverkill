@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 
 import de.LittleRolf.MazeOverkill.data.Maze;
+import de.LittleRolf.MazeOverkill.data.MazeField;
 import de.LittleRolf.MazeOverkill.data.MazeRat;
 
 /**
@@ -20,6 +21,8 @@ public class SimpleRat extends MazeRat {
 
 	@Override
 	public void performStep() {
+		if(checkIfTargetNearby())
+			return;
 
 		turnRight();
 		if (!goForward()) { // can go right?
@@ -33,6 +36,32 @@ public class SimpleRat extends MazeRat {
 			}
 		}
 
+	}
+
+	private boolean checkIfTargetNearby() {
+		try {
+			if (getRatSurrounding().get(Direction.NORTH).isTarget()) {
+				dir = Direction.NORTH;
+				goForward();
+				return true;
+			} else if (getRatSurrounding().get(Direction.EAST).isTarget()) {
+				dir = Direction.EAST;
+				goForward();
+				return true;
+			} else if (getRatSurrounding().get(Direction.SOUTH).isTarget()) {
+				dir = Direction.SOUTH;
+				goForward();
+				return true;
+			} else if (getRatSurrounding().get(Direction.WEST).isTarget()) {
+				dir = Direction.WEST;
+				goForward();
+				return true;
+			}
+			
+		} catch (NullPointerException e) {
+			//Shit happens, on start or target field or maze border not there
+		}
+		return false;
 	}
 
 	@Override
