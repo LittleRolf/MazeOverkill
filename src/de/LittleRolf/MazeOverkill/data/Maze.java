@@ -147,9 +147,11 @@ public class Maze {
 	}
 
 	public boolean isRatOnTarget(MazeRat rat) {
+		boolean onATarget = false;
 		for (Point targetPoint : targetPoints)
-			return rat.position.equals(targetPoint);
-		return false;
+			if (rat.position.equals(targetPoint))
+				onATarget = true;
+		return onATarget;
 	}
 
 	public boolean allRatsOnTarget() {
