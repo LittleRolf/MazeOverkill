@@ -2,6 +2,7 @@ package de.LittleRolf.MazeOverkill.data;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.HashMap;
 
 public abstract class MazeRat {
 
@@ -34,6 +35,11 @@ public abstract class MazeRat {
 	 */
 	public boolean canGoForward() {
 		return maze.canRatGoForward(this);
+	}
+	
+	public HashMap<Direction,MazeField> getRatSurrounding() {
+		return maze.getRatSurrounding(this);
+		
 	}
 
 	/**
