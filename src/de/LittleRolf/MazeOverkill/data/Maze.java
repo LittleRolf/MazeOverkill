@@ -50,8 +50,7 @@ public class Maze {
 	}
 
 	public Maze(BufferedImage img) {
-		System.out.println("creating maze with size " + img.getHeight() + " x "
-				+ img.getWidth());
+
 		maze = new MazeField[img.getHeight()][img.getWidth()];
 
 		for (int x = 0; x < img.getWidth(); x++) {
@@ -75,11 +74,9 @@ public class Maze {
 	}
 
 	private void initRat() {
-		for (Point targetPoint : targetPoints)
-			System.out.println(targetPoint);
-		System.out.println(startPoint);
 
-		rats.add(new BeamRat(startPoint, this));
+
+//		rats.add(new BeamRat(startPoint, this));
 		rats.add(new SimpleRat((Point) startPoint.clone(), this));
 
 	}
@@ -146,7 +143,6 @@ public class Maze {
 			counter++;
 		}
 
-		System.out.println("Finished simulation!");
 		if (allRatsOnTarget()) {
 			System.out.println("Rats finished! It took " + counter + " steps");
 		} else {

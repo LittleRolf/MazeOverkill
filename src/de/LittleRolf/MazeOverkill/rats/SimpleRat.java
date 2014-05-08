@@ -16,24 +16,22 @@ public class SimpleRat extends MazeRat {
 
 	public SimpleRat(Point p, Maze m) {
 		super(p, m);
-		System.out.println(p);
 	}
 
 	@Override
 	public void performStep() {
-		
+
 		turnRight();
-		if (!goForward()) { //can go right?
+		if (!goForward()) { // can go right?
 			turnLeft();
-			if (!goForward()) { //can go straight?
+			if (!goForward()) { // can go straight?
 				turnLeft();
-				if(!goForward()) { //what about left?
+				if (!goForward()) { // what about left?
 					turnLeft();
-					goForward(); //OK, dead end
+					goForward(); // OK, dead end
 				}
 			}
 		}
-		System.out.println("Simple rat: "+position + "   " + dir);
 
 	}
 
