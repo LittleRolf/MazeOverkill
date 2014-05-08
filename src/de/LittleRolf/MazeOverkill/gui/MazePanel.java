@@ -2,6 +2,7 @@ package de.LittleRolf.MazeOverkill.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 
@@ -18,12 +19,14 @@ public class MazePanel extends JPanel {
 
 	private Maze maze;
 
+	private static final int TILE_SIZE = 10;
+
 	/**
 	 * Create the panel.
 	 */
 	public MazePanel(Maze m) {
 		setLayout(null);
-		
+
 		maze = m;
 	}
 
@@ -31,28 +34,52 @@ public class MazePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		drawMaze(g);
-		
+
 		for (MazeRat rat : maze.getRats()) {
 			g.setColor(rat.getColor());
-			g.fillOval(rat.position.x*10+1, rat.position.y*10+1, 7, 7);
-			
+			g.fillOval(rat.position.x * TILE_SIZE, rat.position.y * TILE_SIZE,
+					TILE_SIZE, TILE_SIZE);
+
+			double offX = 0, offY = 0;
 			switch (rat.dir) {
 			case EAST:
-				g.drawLine(rat.position.x*10+10, rat.position.y*10, rat.position.x*10+10, rat.position.y*10+10);
+				offX = .5;
 				break;
 			case NORTH:
-				g.drawLine(rat.position.x*10, rat.position.y*10, rat.position.x*10+10, rat.position.y*10);
+				offY = -.5;
 				break;
 			case SOUTH:
-				g.drawLine(rat.position.x*10, rat.position.y*10+10, rat.position.x*10+10, rat.position.y*10+10);
+				offY = .5;
 				break;
 			case WEST:
-				g.drawLine(rat.position.x*10, rat.position.y*10, rat.position.x*10, rat.position.y*10+10);
+				offX = -.5;
 				break;
 			default:
-				break;
 
 			}
+			g.setColor(Color.BLACK);
+			g.drawLine(rat.position.x * TILE_SIZE + TILE_SIZE / 2,
+					rat.position.y * TILE_SIZE + TILE_SIZE / 2,
+					(int) (rat.position.x * TILE_SIZE + TILE_SIZE / 2 + offX
+							* TILE_SIZE), (int) (rat.position.y * TILE_SIZE
+							+ TILE_SIZE / 2 + offY * TILE_SIZE));
+
+			/*
+			 * switch (rat.dir) { case EAST: g.drawLine(rat.position.x *
+			 * TILE_SIZE + TILE_SIZE, rat.position.y * TILE_SIZE, rat.position.x
+			 * * TILE_SIZE + TILE_SIZE, rat.position.y * TILE_SIZE + TILE_SIZE);
+			 * break; case NORTH: g.drawLine(rat.position.x * TILE_SIZE,
+			 * rat.position.y TILE_SIZE, rat.position.x * TILE_SIZE + TILE_SIZE,
+			 * rat.position.y * TILE_SIZE); break; case SOUTH:
+			 * g.drawLine(rat.position.x * TILE_SIZE, rat.position.y TILE_SIZE +
+			 * TILE_SIZE, rat.position.x * TILE_SIZE + TILE_SIZE, rat.position.y
+			 * * TILE_SIZE + TILE_SIZE); break; case WEST:
+			 * g.drawLine(rat.position.x * TILE_SIZE, rat.position.y TILE_SIZE,
+			 * rat.position.x * TILE_SIZE, rat.position.y TILE_SIZE +
+			 * TILE_SIZE); break; default: break;
+			 * 
+			 * }
+			 */
 		}
 	}
 
@@ -63,13 +90,16 @@ public class MazePanel extends JPanel {
 				MazeField mazeField = mazeRow[x];
 				g.setColor((mazeField.toString().equals("E") ? Color.WHITE
 						: Color.BLACK));
-				g.fillRect(x*10, y*10, 10, 10);
+				g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
 			}
 		}
-		g.setColor(Color.GREEN);
-		g.fillRect(maze.targetPoint.x*10, maze.targetPoint.y*10,10,10);
+		for (Point targetPoint : maze.targetPoints) {
+			g.setColor(Color.GREEN);
+			g.fillRect(targetPoint.x * TILE_SIZE, targetPoint.y * TILE_SIZE,
+					TILE_SIZE, TILE_SIZE);
+		}
 		g.setColor(Color.RED);
-		g.fillRect(maze.startPoint.x*10, maze.startPoint.y*10,10,10);
+		g.fillRect(maze.startPoint.x * 10, maze.startPoint.y * 10, 10, 10);
 	}
 }

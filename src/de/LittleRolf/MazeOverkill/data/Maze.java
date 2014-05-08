@@ -7,7 +7,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import de.LittleRolf.MazeOverkill.rats.*;
+import java.util.List;
+
+import de.LittleRolf.MazeOverkill.rats.BeamRat;
+import de.LittleRolf.MazeOverkill.rats.SimpleRat;
 
 ;
 
@@ -17,7 +20,8 @@ public class Maze {
 
 	private MazeField[][] maze;
 
-	public Point startPoint, targetPoint;
+	public Point startPoint;
+	public List<Point> targetPoints = new ArrayList<Point>();
 
 	private ArrayList<MazeRat> rats = new ArrayList<MazeRat>();
 
@@ -55,7 +59,7 @@ public class Maze {
 				Color c = new Color(img.getRGB(x, y));
 				if (c.getGreen() > 100 && c.getBlue() <= 100) {
 					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
-					targetPoint = new Point(x, y);
+					targetPoints.add(new Point(x, y));
 				} else if (c.getRed() > 100 && c.getBlue() <= 100) {
 					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
 					startPoint = new Point(x, y);
@@ -71,7 +75,8 @@ public class Maze {
 	}
 
 	private void initRat() {
-		System.out.println(targetPoint);
+		for (Point targetPoint : targetPoints)
+			System.out.println(targetPoint);
 		System.out.println(startPoint);
 
 		rats.add(new BeamRat(startPoint, this));
@@ -116,7 +121,9 @@ public class Maze {
 	}
 
 	public boolean isRatOnTarget(MazeRat rat) {
-		return rat.position.equals(targetPoint);
+		for (Point targetPoint : targetPoints)
+			return rat.position.equals(targetPoint);
+		return false;
 	}
 
 	public boolean allRatsOnTarget() {
@@ -160,7 +167,7 @@ public class Maze {
 					startPoint = new Point(x, y);
 				} else if (line.substring(x, x + 1).equals("T")) {
 					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
-					targetPoint = new Point(x, y);
+					targetPoints.add(new Point(x, y));
 				}
 			}
 		}
