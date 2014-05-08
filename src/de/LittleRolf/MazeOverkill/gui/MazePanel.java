@@ -20,7 +20,7 @@ public class MazePanel extends JPanel {
 
 	private Maze maze;
 
-	private static final int TILE_SIZE = 10;
+	private static final int TILE_SIZE = 16;
 
 	/**
 	 * Create the panel.
@@ -107,6 +107,7 @@ public class MazePanel extends JPanel {
 					TILE_SIZE, TILE_SIZE);
 		}
 		g.setColor(Color.RED);
-		g.fillRect(maze.startPoint.x * 10, maze.startPoint.y * 10, 10, 10);
+		g.fillRect(maze.startPoint.x * TILE_SIZE,
+				maze.startPoint.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	}
 }

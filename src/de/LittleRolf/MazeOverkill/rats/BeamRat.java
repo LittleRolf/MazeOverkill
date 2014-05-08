@@ -20,7 +20,6 @@ public class BeamRat extends MazeRat {
 	public void performStep() {
 		
 		position = new Point((int)(Math.random()*maxX),(int) (Math.random()*maxY));
-		System.out.println("Beam rat : " + position + "   " + dir);
 
 	}
 
