@@ -62,10 +62,12 @@ public class Maze {
 			for (int y = 0; y < img.getHeight(); y++) {
 				Color c = new Color(img.getRGB(x, y));
 				if (c.getGreen() > 100 && c.getBlue() <= 100) {
-					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY,false,true);
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY,
+							false, true);
 					targetPoints.add(new Point(x, y));
 				} else if (c.getRed() > 100 && c.getBlue() <= 100) {
-					maze[y][x] = new MazeField(MazeField.FieldType.WALL,true,false);
+					maze[y][x] = new MazeField(MazeField.FieldType.WALL, true,
+							false);
 					startPoint = new Point(x, y);
 				} else if (c.getBlue() >= 100) {
 					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY);
@@ -165,15 +167,35 @@ public class Maze {
 		}
 		return res;
 	}
-	
-	public HashMap<Direction,MazeField> getRatSurrounding(MazeRat rat) {
-		HashMap<Direction,MazeField> surround = new HashMap<Direction,MazeField>();
-		surround.put(Direction.NORTH, maze[rat.position.y-1][rat.position.x]);
-		surround.put(Direction.EAST, maze[rat.position.y][rat.position.x+1]);
-		surround.put(Direction.SOUTH, maze[rat.position.y+1][rat.position.x]);
-		surround.put(Direction.WEST, maze[rat.position.y][rat.position.x-1]);
+
+	public HashMap<Direction, MazeField> getRatSurrounding(MazeRat rat) {
+		HashMap<Direction, MazeField> surround = new HashMap<Direction, MazeField>();
+		try {
+			surround.put(Direction.NORTH,
+					maze[rat.position.y - 1][rat.position.x]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			surround.put(Direction.EAST,
+					maze[rat.position.y][rat.position.x + 1]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			surround.put(Direction.SOUTH,
+					maze[rat.position.y + 1][rat.position.x]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			surround.put(Direction.WEST,
+					maze[rat.position.y][rat.position.x - 1]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
 		return surround;
-		
+
 	}
 
 	public void startSimulation() {
@@ -202,10 +224,12 @@ public class Maze {
 				} else if (line.substring(x, x + 1).equals("W")) {
 					maze[y][x] = new MazeField(MazeField.FieldType.WALL);
 				} else if (line.substring(x, x + 1).equals("S")) {
-					maze[y][x] = new MazeField(MazeField.FieldType.WALL,true,false);
+					maze[y][x] = new MazeField(MazeField.FieldType.WALL, true,
+							false);
 					startPoint = new Point(x, y);
 				} else if (line.substring(x, x + 1).equals("T")) {
-					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY,false,true);
+					maze[y][x] = new MazeField(MazeField.FieldType.EMPTY,
+							false, true);
 					targetPoints.add(new Point(x, y));
 				}
 			}
